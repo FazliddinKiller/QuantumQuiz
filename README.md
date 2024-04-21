@@ -5,4 +5,4 @@ This web app utilises AI to generate different types of question based on differ
   pip install -r requirements.txt
 
 2. Run manage.py
-   python manage.py runserver
+   <code>python manage.py runserver</code>
