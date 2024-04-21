@@ -1,0 +1,28 @@
+.body{
+    background-color: #F2F2F2;
+}
+.navbar{
+    background-color: gray;
+}
+.navbar-brand{
+    position: relative;
+}
+
+.container-create{
+    height: 100%;
+    width: 100% ;
+}
+
+#switchToSignup a, #switchToLogin a{
+    color:rgb(0, 123, 255);
+}
+
+.card{
+    background-color: rgba(51, 45, 71, 0.105);
+    height: 250px;
+}
+
+.card-elements{
+    height: 100px;
+    vertical-align: middle !important;
+}

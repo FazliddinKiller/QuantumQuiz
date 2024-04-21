@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section>
+    <div class="container">
+        <h1 class="text-center pt-3">Question Generation</h1>
+        <form method="post" id="FormId">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="questionType">Question Type:</label>
+                <select class="form-control" id="questionType" name="questionType">
+                    <option value="" selected disabled>Select Question Type</option>
+                    <option value="mcq">Multiple Choice Questions</option>
+                    <option value="shaq">Short answer questions</option>
+                    <option value="tfq">True or False questions</option>
+                    <option value="psq">Real World Problem Solving questions</option>
+                    <!-- Add options for other question types if needed -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="contextType">Context Type:</label>
+                <select class="form-control" id="contextType" name="contextType">
+                    <option value="" selected disabled>Select Context Type</option>
+                    <option value="document">Document</option>
+                    <option value="url">Link</option>
+                    <option value="text">Text</option>
+                </select>
+            </div>
+
+            <!-- Document Field (hidden by default) -->
+            <div class="form-group" id="documentField" style="display: none;">
+                <label for="document">Upload Document (PDF or Word):</label>
+                <input type="file" class="form-control-file" id="document" name="document" accept=".pdf,.doc,.docx">
+                
+                <div class="form-row mt-3">
+                    <div class="col">
+                        <label for="startPage">Start Page:</label>
+                        <input type="number" class="form-control" id="startPage" name="startPage" placeholder="Start Page">
+                    </div>
+                    <div class="col">
+                        <label for="endPage">End Page:</label>
+                        <input type="number" class="form-control" id="endPage" name="endPage" placeholder="End Page">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- URL Field (hidden by default) -->
+            <div class="form-group" id="urlField" style="display: none;">
+                <label for="url">Enter Link:</label>
+                <input type="url" class="form-control" id="url" name="url" placeholder="https://example.com">
+            </div>
+        
+            <!-- Text Field (hidden by default) -->
+            <div class="form-group" id="textField" style="display: none;">
+                <label for="text">Just paste the text to generate quiz:</label>
+                <textarea class="form-control" id="text" name="text" rows="4"></textarea>
+            </div>
+        
+            <div class="form-group">
+                <label for="difficultyLevel">Difficulty Level:</label>
+                <select class="form-control" id="difficultyLevel" name="difficultyLevel">
+                    <option value="" selected disabled>Select Difficulty Level</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <!-- Quantity Field -->
+            <div class="form-group" id="documentField">
+                <label for="">Enter Question quantity</label>
+                <input type="number" class="form-control" name="quantity" placeholder="Quantity">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+    </div>
+</section>
+
+
+<script>
+// Send form data to backend to further processing
+document.addEventListener("DOMContentLoaded", function () {
+    var form = document.getElementById("FormId");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        // Serialize form data
+        var formData = new FormData(form);
+        
+        // Send an AJAX request
+        fetch("{% url 'genQuiz:generate' %}", {
+            method: "POST",
+            body: formData
+        })
+        .then(() => {
+            // Form data sent successfully, no need to handle response
+            console.log("Form data sent successfully");
+            alert("Quizzes created successfully!");
+        })
+        .catch(error => {
+            // Handle errors
+            console.error("There was a problem with sending the form data:", error);
+        });
+    });
+});
+
+
+
+document.getElementById("document").addEventListener("change", function() {
+    var file = this.files[0];
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var text = e.target.result;
+            // Here you can extract the start and end page numbers from the text
+            // For demonstration, let's assume they are extracted as startPageNumber and endPageNumber
+
+            // Set the values of startPage and endPage fields
+            document.getElementById("startPage").placeholder = "Enter reasonable number";
+            document.getElementById("endPage").placeholder = "Enter reasonable number";
+        };
+        reader.readAsText(file);
+    }
+});
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var contextTypeSelect = document.getElementById("contextType");
+        var documentField = document.getElementById("documentField");
+        var urlField = document.getElementById("urlField");
+        var textField = document.getElementById("textField");
+
+        // Initially hide all fields
+        documentField.style.display = "none";
+        urlField.style.display = "none";
+        textField.style.display = "none";
+
+        contextTypeSelect.addEventListener("change", function () {
+            var selectedContext = contextTypeSelect.value;
+
+            // Hide all fields
+            documentField.style.display = "none";
+            urlField.style.display = "none";
+            textField.style.display = "none";
+
+            // Show the selected field based on the context type
+            if (selectedContext === "document") {
+                documentField.style.display = "block";
+            } else if (selectedContext === "url") {
+                urlField.style.display = "block";
+            } else if (selectedContext === "text") {
+                textField.style.display = "block";
+            }
+        });
+    });
+    
+</script>
+
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!-- Login/Signup Modal -->
+    <div class="modal fade" id="loginSignupModal" tabindex="-1" role="dialog" aria-labelledby="loginSignupModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginSignupModalLabel">Login / Sign Up</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login form -->
+                    <form method="post" action="{% url 'genQuiz:login' %}" id="loginForm">
+                        {% csrf_token %}
+                        {{ login_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        
+                    </form>
+                    <!-- Signup form (hidden by default) -->
+                    <form method="post" action = "{% url 'genQuiz:signup' %}" id="signupForm" style="display: none;">
+                        {% csrf_token %}
+                        {{ signup_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Sign Up</button>
+                    </form>
+                </div>
+                
+                <div class="modal-footer">
+                    <p id="switchToSignup">Don't have account? <a>Sign Up</a></p>
+                    <p style="display: none;" id="switchToLogin">Already have account? <a>Login</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <main>
+        <section style="color: #222222; margin-top: 2.5%;">
+            <h2 class="text-center">Create Quizzes from different sources!</h2>
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-3 d-flex justify-content-center align-items-center">
+                                        <i class="fa-regular fa-wand-magic-sparkles" style="font-size: 400%;"></i>
+                                    </div>                                    
+                                    <div class="col-9">
+                                        <p> Generate from Text <a style="background-color: #EEE9F4; color: #8854C0; border-radius: 5px; padding:2px 10px;"><i class="fa-solid fa-sparkles"></i> AI</a></p>
+                                        <p>Prompt the Al or paste your own text</p>
+                                    </div>
+                                </div>
+                                <div class="container d-flex justify-content-around card-elements">
+                                    <img src="{% static 'assets/img/ctrl+c.png' %}"  style="padding: 5px; width: 50%;" alt=""><br>
+                                    <img src="{% static 'assets/img/ctrl+v.png' %}"  style="padding: 5px; width: 50%;"  alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-3 d-flex justify-content-center align-items-center">
+                                        <i class="fa-regular fa-file-arrow-up" style="font-size: 400%;"></i>
+                                    </div>                                    
+                                    <div class="col-9">
+                                        <p>Upload a document <a style="background-color: #EEE9F4; color: #8854C0; border-radius: 5px; padding:2px 10px;"><i class="fa-solid fa-sparkles"></i> AI</a></p>
+                                        <p>Transform any PDF, DOC into a quiz</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-around card-elements">
+                                    <img src="{% static 'assets/img/pdf.png' %}" style="height: 100%; " alt="">
+                                    <img src="{% static 'assets/img/doc.png' %}" style="height: 100%; " alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-3 d-flex justify-content-center align-items-center">
+                                        <i class="fa-regular fa-link" style="font-size: 400%;"></i>
+                                    </div>                                    
+                                    <div class="col-9">
+                                        <p>Convert URL to quiz<a style="background-color: #EEE9F4; color: #8854C0; border-radius: 5px; padding:2px 10px;"><i class="fa-solid fa-sparkles"></i> AI</a></p>
+                                        <p>YouTube videos, Wikipedia pages and more</p>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-around card-elements">
+                                    <img src="{% static 'assets/img/youtube.png' %}" style="height: 100%;" alt="">
+                                    <img src="{% static 'assets/img/wiki.svg' %}" style="height: 100%;" alt="">
+                                    <img src="{% static 'assets/img/www.png' %}" style="height: 100%;" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        {% if user.is_authenticated %}
+        <section class='generate-quiz container d-flex justify-content-center text-center'>
+            <button class="btn btn-danger" style="padding: 2% 5%; border-radius: 500px;"><a href="{% url 'genQuiz:genQuiz' %}" style="color: white; text-decoration: none; font-size: 250%;">Generate Quiz!</a></button>
+        </section>
+        
+        {% endif %}
+    </main>
+{% endblock %}

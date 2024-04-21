@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}  
+
+<section>
+    <div class="container">
+        <h1 class="mt-4 mb-4 text-center">User Questions</h1>
+        <div class="row">
+            {% for question in quizzez %}
+            <div class="col-md-6 p-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ question.question }}</h5>
+                        <ul class="list-unstyled">
+                            <li>Option 1: {{ question.option1 }}</li>
+                            <li>Option 2: {{ question.option2 }}</li>
+                            {% if question.option3 %}
+                            <li>Option 3: {{ question.option3 }}</li>
+                            {% endif %}
+                            <li id="answer{{ forloop.counter }}" class="d-none">Answer: {{ question.answer }}</li>
+                        </ul>
+                        <button class="btn btn-primary show-answer-btn" data-answer-id="answer{{ forloop.counter }}">Show Answer</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% if not quizzez %}
+<section class='generate-quiz container d-flex justify-content-center text-center'>
+    <button class="btn btn-danger" style="padding: 2% 5%; border-radius: 500px;"><a href="{% url 'genQuiz:genQuiz' %}" style="color: white; text-decoration: none; font-size: 250%;">Generate Quiz!</a></button>
+</section>
+{% endif %}
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const showAnswerButtons = document.querySelectorAll('.show-answer-btn');
+
+        showAnswerButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const answerId = this.dataset.answerId;
+                const answerElement = document.getElementById(answerId);
+                answerElement.classList.toggle('d-none');
+                
+                // Toggle button text
+                if (this.innerText === 'Show Answer') {
+                    this.innerText = 'Hide Answer';
+                } else {
+                    this.innerText = 'Show Answer';
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

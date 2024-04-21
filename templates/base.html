@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuantumQuiz</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/style.css' %}">
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-thin.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-solid.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-regular.css"
+      >
+
+      <link
+        rel="stylesheet"
+        href="https://site-assets.fontawesome.com/releases/v6.5.2/css/sharp-light.css"
+      >
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="{% url 'genQuiz:home' %}"><i class="fa-regular fa-q"></i>uantum<i class="fa-regular fa-q"></i>uiz</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'genQuiz:logout' %}"><button class="btn exit-btn"><i class="fa-solid fa-arrow-left-from-bracket" style="color: azure;"></i></button></a>
+                    {% else %}
+                    <button class="btn btn-primary login-btn" data-toggle="modal" data-target="#loginSignupModal"><i class="fas fa-sign-in-alt"></i></button>
+                    {% endif %}
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <button class="btn exit-btn"><a href="{% url 'genQuiz:profile' %}"><i class="fa-solid fa-user" style="color: azure;"></i></a></button>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Switch to Sign Up form
+            $("#switchToSignup").click(function(){
+                $("#loginForm").hide();
+                $("#signupForm").show();
+                $(this).hide();
+                $("#switchToLogin").show();
+            });
+            // Switch to Login form
+            $("#switchToLogin").click(function(){
+                $("#signupForm").hide();
+                $("#loginForm").show();
+                $(this).hide();
+                $("#switchToSignup").show();
+            });
+            // Hover effect for switch links
+            $("#switchToSignup a, #switchToLogin a").hover(function(){
+                $(this).css("cursor", "pointer");
+            }, function(){
+                $(this).css("cursor", "default");
+            });
+        });
+    </script>
+</body>
+</html>
