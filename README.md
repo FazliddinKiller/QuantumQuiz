@@ -2,7 +2,7 @@
 This web app utilises AI to generate different types of question based on different sources
 
 
-GO to this website : quantumquiz.faradev.uz
+GO to this website : <link>quantumquiz.rafadev.uz</link>
 
 OR
 
