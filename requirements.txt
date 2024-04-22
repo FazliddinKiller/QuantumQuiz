@@ -22,7 +22,6 @@ decorator==4.4.2
 distro==1.9.0
 Django==5.0.4
 document==1.0
-docx==0.2.4
 etelemetry==0.3.1
 filelock==3.13.4
 fitz==0.0.1.dev2
