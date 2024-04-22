@@ -59,6 +59,7 @@ numpy==1.26.4
 oauthlib==3.2.2
 openai==1.23.2
 orjson==3.10.1
+python-docx
 packaging==23.2
 pandas==2.2.2
 pathlib==1.0.1
