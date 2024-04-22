@@ -5,7 +5,6 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import os
 import PyPDF2
-import docx
 from .models import Quiz
 from generateQuiz.makeQuiz import generateQuiz
 
