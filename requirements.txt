@@ -107,3 +107,4 @@ langchain
 pytube
 moviepy
 bs4
+python-dotenv
