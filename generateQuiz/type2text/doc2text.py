@@ -1,7 +1,7 @@
 # This script extracts text from documents
 # It currently supports .pdf files and .txt files
 import PyPDF2
-
+from docx import Document
 # Returns text of selected pages
 def pdf2text(filename,  pages): # string, int, list 
     text = []
