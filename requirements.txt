@@ -24,7 +24,6 @@ Django==5.0.4
 document==1.0
 etelemetry==0.3.1
 filelock==3.13.4
-fitz==0.0.1.dev2
 frontend==0.0.3
 frozenlist==1.4.1
 greenlet==3.0.3
@@ -54,12 +53,10 @@ multidict==6.0.5
 mypy-extensions==1.0.0
 networkx==3.3
 nibabel==5.2.1
-nipype==1.8.6
 numpy==1.26.4
 oauthlib==3.2.2
 openai==1.23.2
 orjson==3.10.1
-python-docx
 packaging==23.2
 pandas==2.2.2
 pathlib==1.0.1
@@ -102,6 +99,7 @@ tzdata==2024.1
 urllib3==2.2.1
 uvicorn==0.29.0
 yarl==1.9.4
+python-docx
 langchain-openai
 langchain
 pytube
